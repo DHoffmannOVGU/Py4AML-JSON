@@ -1,10 +1,6 @@
 import streamlit as st
 import xmltodict
 import json
-import hydralit as hy
-import streamlit_pydantic as sp
-from pydantic import BaseModel
-import streamlit_nested_layout
 from PIL import Image
 
 from xsdata.formats.dataclass.context import XmlContext
@@ -33,20 +29,12 @@ def json_optimizer(aml_dict: dict):
             value = json_optimizer(value)
     return aml_dict
 
-# Update forward references in a module
-def update_forward_refs_in_module(module):
-    for attr_name in dir(module):
-        attr_value = getattr(module, attr_name)
-        if isinstance(attr_value, type) and issubclass(attr_value, BaseModel):
-            attr_value.update_forward_refs()
-
-
 # Load AML and header images
 aml_image = Image.open('./aml_logo.png')
 aml_header_logo = Image.open('./aml_header_logo.png')
 
 # Initialize Streamlit page configuration
-hy.set_page_config(page_title="AML-JSON Converter", page_icon=aml_image, initial_sidebar_state='collapsed', layout='wide')
+st.set_page_config(page_title="AML-JSON Converter", page_icon=aml_image, initial_sidebar_state='collapsed', layout='wide')
 
 # Create XML context, parser, and serializer
 context = XmlContext()
