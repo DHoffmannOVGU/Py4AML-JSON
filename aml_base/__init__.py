@@ -1,6 +1,7 @@
 from aml_base.caex_class_model_v_3_0 import (
-    AttributeFamilyType,
+    AdditionalInformation,
     AttributeType,
+    AttributeInstance,
     AttributeTypeRefSemantic,
     AttributeValueRequirementType,
     AttributeValueRequirementTypeNominalScaledType,
@@ -39,8 +40,9 @@ from aml_base.caex_class_model_v_3_0 import (
 )
 
 __all__ = [
-    "AttributeFamilyType",
+    "AdditionalInformation"
     "AttributeType",
+    "AttributeInstance",
     "AttributeTypeRefSemantic",
     "AttributeValueRequirementType",
     "AttributeValueRequirementTypeNominalScaledType",

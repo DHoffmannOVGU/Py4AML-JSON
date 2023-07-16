@@ -57,14 +57,21 @@ if raw_data is not None:
     if raw_data.type == "text/xml" or raw_data.type == "application/octet-stream":
         bytes_data = raw_data.getvalue()
 
-        # XMLDICT
-        dict_data = xmltodict.parse(bytes_data)
-        st.session_state["xmltodict_dict"] = dict_data
+        try:
+            # XMLDICT
+            dict_data = xmltodict.parse(bytes_data)
+            st.session_state["xmltodict_dict"] = dict_data
+            st.session_state["type"] = "XML"
+        except Exception as e:
+            print(e)
 
-        # XSDATA
-        aml_object: Caexfile = parser.from_string(str(bytes_data, 'utf-8'), Caexfile)
-        st.session_state["aml_object"] = aml_object
-        st.session_state["type"] = "XML"
+        try:
+            # XSDATA
+            aml_object: Caexfile = parser.from_string(str(bytes_data, 'utf-8'), Caexfile)
+            st.session_state["aml_object"] = aml_object
+            st.session_state["type"] = "XML"
+        except Exception as e:
+            print(e)
 
     if raw_data.type == "application/json":
         dict_data = json.load(raw_data)
@@ -88,10 +95,15 @@ if st.session_state.get("type") == "XML":
             st.success("AML file successfully uploaded, please select a converter tab to continue")
 
             with st.expander("Show XMLDICT data"):
-                st.write(dict_data)
+                st.json(dict_data, expanded=False)
 
-            with st.expander("Show XS Data AML data"):
-                st.write(aml_object)
+            try:
+                with st.expander("Show XS Data AML data"):
+                    st.write(aml_object)
+            except Exception as e:
+                print(e)
+                st.warning("Schmema-based converter failed, please use the simple converter instead")
+                st.warning("Please provide AML files build with the CAEX 3.0 schema")
 
         with xml_to_dict_tab:
             bool_column, specific_column = st.columns([1, 5])
@@ -140,10 +152,10 @@ if st.session_state.get("type") == "XML":
             cleaned_aml = json_optimizer(aml_xsdict)
 
             with st.expander("Show Uncleaned JSON"):
-                st.json(aml_xsdict, expanded=True)
+                st.json(aml_xsdict, expanded=False)
 
             with st.expander("Show JSON"):
-                st.json(cleaned_aml, expanded=True)
+                st.json(cleaned_aml, expanded=False)
 
             cleaned_json: str = json.dumps(cleaned_aml, indent=indent_value)
             byte_length: float = len(cleaned_json)

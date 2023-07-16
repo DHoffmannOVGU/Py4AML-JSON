@@ -3,7 +3,6 @@ from enum import Enum
 from pydantic.dataclasses import dataclass
 from typing import List, Optional, Dict
 from xsdata.models.datatype import XmlDateTime
-from pydantic import Field
 
 __NAMESPACE__ = "http://www.dke.de/CAEX"
 
@@ -345,15 +344,16 @@ class AdditionalInformation:
     key: str = field(
         default="",
         metadata={
-            "required": True,
+            "required": False,
         }
     )
     value: str = field(
         default="",
         metadata={
-            "required": True,
+            "required": False,
         }
     )
+
 
 @dataclass
 class CaexbasicObject:
@@ -379,7 +379,7 @@ class CaexbasicObject:
     class Meta:
         name = "CAEXBasicObject"
 
-    additional_information: List[AdditionalInformation] = field(
+    additional_information: List["AdditionalInformation"] = field(
         default_factory=list,
         metadata={
             "name": "AdditionalInformation",
@@ -450,14 +450,13 @@ class AttributeTypeRefSemantic(CaexbasicObject):
         global_type = False
 
     corresponding_attribute_path: Optional[str] = field(
-        default=None,
+        default="",
         metadata={
             "name": "CorrespondingAttributePath",
             "type": "Attribute",
             "required": True,
         }
     )
-
 
 @dataclass
 class AttributeValueRequirementType(CaexbasicObject):
@@ -613,7 +612,7 @@ class MappingTypeInterfaceIdmapping(CaexbasicObject):
 
 
 @dataclass
-class AttributeType(Caexobject):
+class AttributeInstance(Caexobject):
     """
     Defines base structures for attribute definitions.
 
@@ -648,8 +647,8 @@ class AttributeType(Caexobject):
             "namespace": "http://www.dke.de/CAEX",
         }
     )
-    ref_semantic: List[AttributeTypeRefSemantic] = Field(
-        default_factory=list,
+    ref_semantic: Optional[List[AttributeTypeRefSemantic]] = field(
+        default=None,
         metadata={
             "name": "RefSemantic",
             "type": "Element",
@@ -664,7 +663,7 @@ class AttributeType(Caexobject):
             "namespace": "http://www.dke.de/CAEX",
         }
     )
-    attribute: List["AttributeType"] = field(
+    attribute: List["AttributeInstance"] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
@@ -749,18 +748,20 @@ class SystemUnitClassTypeInternalLink(Caexobject):
 
 
 @dataclass
-class AttributeFamilyType(AttributeType):
+class AttributeType(AttributeInstance):
     """
     Defines base structures for attribute type definitions.
     """
-    attribute_type: List["AttributeFamilyType"] = field(
+    attribute_type: List["AttributeType"] = field(
         default_factory=list,
         metadata={
             "name": "AttributeType",
             "type": "Element",
             "namespace": "http://www.dke.de/CAEX",
+            "required": "False"
         }
     )
+
 
 
 @dataclass
@@ -775,7 +776,7 @@ class InterfaceClassType(Caexobject):
         base class. References contain the full path to the referred
         class object.
     """
-    attribute: List[AttributeType] = field(
+    attribute: List[AttributeInstance] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
@@ -828,10 +829,10 @@ class CaexfileAttributeTypeLib(Caexobject):
     """
     :ivar attribute_type: Class definition for attribute Types
     """
-    class Meta:
-        global_type = False
+    # class Meta:
+    #     global_type = False
 
-    attribute_type: List[AttributeFamilyType] = field(
+    attribute_type: List[AttributeType] = field(
         default_factory=list,
         metadata={
             "name": "AttributeType",
@@ -874,7 +875,7 @@ class InternalElementTypeRoleRequirements(CaexbasicObject):
     class Meta:
         global_type = False
 
-    attribute: List[AttributeType] = field(
+    attribute: List[AttributeInstance] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
@@ -929,7 +930,7 @@ class InternalElementType(Caexobject):
         InternalElement to a class or instance definition. References
         contain the full path information.
     """
-    attribute: List[AttributeType] = field(
+    attribute: List[AttributeInstance] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
@@ -1004,7 +1005,7 @@ class SystemUnitClassType(Caexobject):
     :ivar internal_link: Shall be used in order to define the
         relationships between internal interfaces of InternalElements.
     """
-    attribute: List[AttributeType] = field(
+    attribute: List[AttributeInstance] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
@@ -1075,7 +1076,7 @@ class RoleClassType(Caexobject):
         base class. References contain the full path to the referred
         class object.
     """
-    attribute: List[AttributeType] = field(
+    attribute: List[AttributeInstance] = field(
         default_factory=list,
         metadata={
             "name": "Attribute",
