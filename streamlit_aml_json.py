@@ -29,6 +29,37 @@ def json_optimizer(aml_dict: dict):
             value = json_optimizer(value)
     return aml_dict
 
+
+def json_optimizer2(aml_dict: dict):
+    name_abbreviations = {
+        "Name": "N",
+        "SuperiorStandardVersion": "SSV",
+        "InterfaceClass": "IC",
+        "CaexFile": "CF",
+        "RoleClass": "RC",
+        "InternalElement": "IE",
+        "InstanceHierarchy": "IH"
+    }
+
+    new_dict = {}
+    for key, value in aml_dict.items():
+        new_key = name_abbreviations.get(key, key)
+        if isinstance(value, dict):
+            new_dict[new_key] = json_optimizer2(value)
+        elif isinstance(value, list):
+            new_value_list = []
+            for entry in value:
+                if isinstance(entry, dict):
+                    new_value_list.append(json_optimizer2(entry))
+                else:
+                    new_value_list.append(entry)
+            new_dict[new_key] = new_value_list
+        else:
+            new_dict[new_key] = value
+
+    return new_dict
+
+
 # Load AML and header images
 aml_image = Image.open('./aml_logo.png')
 aml_header_logo = Image.open('./aml_header_logo.png')
@@ -171,10 +202,15 @@ if st.session_state.get("type") == "XML":
 
         with optimized_tab:
             abbreviate = bool_column.checkbox("Abbreviate keys?")
+            optimized_aml = json_optimizer2(aml_xsdict)
+
+            with st.expander("Show JSON"):
+                st.json(optimized_aml, expanded=False)
 
     except Exception as e:
         print(e)
-        st.info("Upload AML file to convert")
+        st.info("Some error happenend AML file to convert")
+        st.error(e)
 
 elif st.session_state.get("type") == "JSON":
     aml_object: Caexfile = json_parser.bind_dataclass(st.session_state["aml_object"], Caexfile)
