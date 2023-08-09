@@ -2,13 +2,16 @@ import streamlit as st
 import xmltodict
 import json
 from PIL import Image
+import streamlit_pydantic as sp
+import streamlit_nested_layout
+
 
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser, JsonParser
 from xsdata.formats.dataclass.serializers import XmlSerializer, JsonSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from aml_base import Caexfile
+from aml_base import Caexfile, AttributeInstance, Caexobject, InternalElementType, CaexfileInstanceHierarchy
 
 # Utility function to optimize JSON dictionary
 def json_optimizer(aml_dict: dict):
@@ -172,9 +175,12 @@ if st.session_state.get("type") == "XML":
         with optimized_tab:
             abbreviate = bool_column.checkbox("Abbreviate keys?")
 
+            
+
     except Exception as e:
         print(e)
         st.info("Upload AML file to convert")
+       
 
 elif st.session_state.get("type") == "JSON":
     aml_object: Caexfile = json_parser.bind_dataclass(st.session_state["aml_object"], Caexfile)
@@ -184,3 +190,8 @@ elif st.session_state.get("type") == "JSON":
 
 else:
     st.info("Upload AML file to convert")
+
+    test = InternalElementType(name="Test")
+    print(test)
+    with st.expander("Show Attribute data"):
+        attribute = sp.pydantic_input(key="attribute_type", model=CaexfileInstanceHierarchy)

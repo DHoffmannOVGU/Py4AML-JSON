@@ -355,7 +355,7 @@ class AdditionalInformation:
     )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class CaexbasicObject:
     """
     CAEX basis object that comprises a basic set of attributes and header
@@ -450,7 +450,7 @@ class AttributeTypeRefSemantic(CaexbasicObject):
         global_type = False
 
     corresponding_attribute_path: Optional[str] = field(
-        default="",
+        default=None,
         metadata={
             "name": "CorrespondingAttributePath",
             "type": "Attribute",
@@ -535,7 +535,7 @@ class CaexfileExternalReference(CaexbasicObject):
     )
 
 
-@dataclass
+@dataclass(kw_only=True)
 class Caexobject(CaexbasicObject):
     """
     CAEX basis object derived from CAEXBasicObject, augmented by Name
@@ -631,6 +631,24 @@ class AttributeInstance(Caexobject):
     :ivar ref_attribute_type: References an attribute type in the
         attribute library.
     """
+    attribute: Optional[List["AttributeInstance"]] = field(
+        default_factory=list,
+        metadata={
+            "name": "Attribute",
+            "type": "Element",
+            "namespace": "http://www.dke.de/CAEX",
+        }
+    )
+
+    constraint: List[AttributeValueRequirementType] = field(
+        default_factory=list,
+        metadata={
+            "name": "Constraint",
+            "type": "Element",
+            "namespace": "http://www.dke.de/CAEX",
+        }
+    )
+    
     default_value: str = field(
         default=None,
         metadata={
@@ -655,22 +673,7 @@ class AttributeInstance(Caexobject):
             "namespace": "http://www.dke.de/CAEX",
         }
     )
-    constraint: List[AttributeValueRequirementType] = field(
-        default_factory=list,
-        metadata={
-            "name": "Constraint",
-            "type": "Element",
-            "namespace": "http://www.dke.de/CAEX",
-        }
-    )
-    attribute: List["AttributeInstance"] = field(
-        default_factory=list,
-        metadata={
-            "name": "Attribute",
-            "type": "Element",
-            "namespace": "http://www.dke.de/CAEX",
-        }
-    )
+
     unit: Optional[str] = field(
         default=None,
         metadata={
@@ -915,7 +918,9 @@ class RoleClassTypeExternalInterface(InterfaceClassType):
         global_type = False
 
 
-@dataclass
+
+
+@dataclass(kw_only=True)
 class InternalElementType(Caexobject):
     """Defines base structures for a hierarchical object instance.
 
@@ -988,6 +993,9 @@ class InternalElementType(Caexobject):
         }
     )
 
+@dataclass(kw_only=True)
+class InternalElement(InternalElementType):
+    pass
 
 @dataclass
 class SystemUnitClassType(Caexobject):
