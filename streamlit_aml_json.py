@@ -32,13 +32,92 @@ def json_optimizer(aml_dict: dict):
 
 def json_optimizer2(aml_dict: dict):
     name_abbreviations = {
-        "Name": "N",
+        "CAEXFile": "CAEXF",
+        "CAEXBasicObject": "CAEXBO",
         "SuperiorStandardVersion": "SSV",
-        "InterfaceClass": "IC",
-        "CaexFile": "CF",
+        "SourceDocumentInformation": "SDI",
+        "ExternalReference": "EXR",
+        "InstanceHierarchy": "IH",
+        "InterfaceClassLib": "ICL",
+        "RoleClassLib": "RCL",
         "RoleClass": "RC",
+        "SystemUnitClassLib": "SUCL",
+        "SystemUnitClass": "SUC",
+        "AttributeTypeLib": "ATL",
+        "SchemaVersion": "SV",
+        "FileName": "FN",
+        "ChangeMode": "CM",
+        "Revision": "REV",
+        "RevisionDate": "REVD",
+        "OldVersion": "OV",
+        "NewVersion": "NV",
+        "AuthorName": "AN",
+        "AdditionalInformation": "AI",
+        "SourceObjectInformation": "SOI",
+        "OriginID": "OID",
+        "SourceObjID": "SOID",
+        "SourceDocumentInformationType": "SDIT",
+        "OriginName": "ON",
+        "OriginVendor": "OV",
+        "OriginRelease": "OR",
+        "LastWritingDateTime": "LRDT",
+        "OriginProjectTitle": "OPT",
+        "OriginProjectID": "OPID",
+        "MappingType": "MT",
+        "AttributeNameMapping": "ANM",
+        "InterfaceIDMapping": "IIM",
+        "AttributeFamilyType": "AFT",
+        "AttributeType": "AT",
+        "InternalElementType": "IET",
+        "SystemUnitClassType": "SUCT",
+        "RoleRequirements": "RR",
+        "Attribute": "ATTR",
+        "ExternalInterface": "EI",
+        "MappingObject": "MO",
+        "SystemUnitFamilyType": "SUFT",
+        "AttributeValueRequirementType": "AVRT",
+        "OrdinalScaledType": "OST",
+        "RequiredMaxValue": "RMV",
+        "RequiredValue": "RV",
+        "RequiredMinValue": "RMV",
+        "NominalScaledType": "NST",
+        "UnknownType": "UT",
         "InternalElement": "IE",
-        "InstanceHierarchy": "IH"
+        "SupportedRoleClass": "SRC",
+        "InternalLink": "IL",
+        "CAEXObject": "CAEXO",
+        "RoleClassType": "RCT",
+        "RoleFamilyType": "RFT",
+        "InterfaceClassType": "ICT",
+        "DefaultValue": "DV",
+        "RefSemantic": "RS",
+        "AttributeDataType": "ADT",
+        "RefAttributeType": "RAT",
+        "InterfaceFamilyType": "IFT",
+        "InterfaceClass": "IC",
+        "Path": "P",
+        "Alias:=": "A",
+        "Header": "H",
+        "Description": "D",
+        "Version": "V",
+        "Comment": "C",
+        "Copyright": "CR",
+        "RefBaseRoleClassPath": "RBRCP",
+        "RefBaseSystemUnitPath": "RBSUP",
+        "RefBaseClassPath": "RBCP",
+        "Requirements": "R",
+        "Name": "N",
+        "RefRoleClassPath": "RRCP",
+        "RefPartnerSideA": "RPSA",
+        "RefPartnerSideB": "RPSB",
+        "Value": "Va",
+        "CorrespondingAttributePath": "CAP",
+        "Constraint": "Co",
+        "Unit": "U",
+        "state": "S",
+        "create": "Cr",
+        "delete": "De",
+        "change": "Ch",
     }
 
     new_dict = {}
@@ -201,11 +280,26 @@ if st.session_state.get("type") == "XML":
             st.download_button("Download converted AML-JSON File", file_name=f"{st.session_state['file_name']}.json", mime="application/json", data=cleaned_json, use_container_width=True, key="download_button2")
 
         with optimized_tab:
-            abbreviate = bool_column.checkbox("Abbreviate keys?")
+            bool_column, specific_column = st.columns([1, 5])
+            abbreviate = bool_column.checkbox("Abbreviate keys?", key="abbreviate")
             optimized_aml = json_optimizer2(aml_xsdict)
-
-            with st.expander("Show JSON"):
+            with st.expander("Show JSON without Abbreviations"):
+                st.json(cleaned_aml, expanded=False)
+            with st.expander("Show JSON with Abbreviations"):
                 st.json(optimized_aml, expanded=False)
+            optimized_json: str = json.dumps(optimized_aml)
+            byte_length: float = len(optimized_json)
+            delta = ((byte_length / 1000) / float(st.session_state['raw_data_size']) - 1) * 100
+            rounded_delta = round(delta, 2)
+            col1, col2, col3 = st.columns([2, 1, 1])
+            optimized_json: str = json.dumps(optimized_aml)
+            col1.metric("File name", st.session_state["file_name"])
+            col2.metric("Data format", ".json")
+            col3.metric("File size", f"{byte_length / 1000} KB", delta=f"{rounded_delta} % ", delta_color="inverse")
+            st.success("AML file successfully converted to JSON, Download file below")
+            st.download_button("Download converted AML-JSON File", file_name=f"{st.session_state['file_name']}.json",
+                               mime="application/json", data=optimized_json, use_container_width=True,
+                               key="download_button3")
 
     except Exception as e:
         print(e)
