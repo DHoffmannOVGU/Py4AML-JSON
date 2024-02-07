@@ -1,0 +1,128 @@
+{
+  "assetAdministrationShells": [
+    {
+      "idShort": "ConveyorUnitAAS",
+      "id": "https://example.com/ids/sm/5080_0091_2132_6739",
+      "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "FB1",
+        "specificAssetIds": []
+      },
+      "submodels": [
+        {
+          "type": "ExternalReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "https://example.com/ids/sm/7230_0091_2132_1373"
+            }
+          ]
+        },
+        {
+          "type": "ExternalReference",
+          "keys": [
+            {
+              "type": "Submodel",
+              "value": "https://example.com/ids/sm/5080_0091_2132_9739"
+            }
+          ]
+        }
+      ],
+      "modelType": "AssetAdministrationShell"
+    }
+  ],
+  "submodels": [
+    {
+      "idShort": "Mechanical",
+      "id": "https://example.com/ids/sm/7230_0091_2132_1373",
+      "submodelElements": [
+        {
+          "idShort": "Length",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "ConceptDescription",
+                "value": "https://example.com/ids/cd/4440_0091_2132_7184"
+              }
+            ]
+          },
+          "valueType": "xs:long",
+          "value": "10",
+          "valueId": { "type": "ModelReference", "keys": [] },
+          "modelType": "Property"
+        }
+      ],
+      "modelType": "Submodel"
+    },
+    {
+      "idShort": "Electrical",
+      "id": "https://example.com/ids/sm/5080_0091_2132_9739",
+      "submodelElements": [
+        {
+          "idShort": "Current",
+          "semanticId": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "ConceptDescription",
+                "value": "https://example.com/ids/cd/7280_0091_2132_5037"
+              }
+            ]
+          },
+          "valueType": "xs:string",
+          "value": "10",
+          "modelType": "Property"
+        }
+      ],
+      "modelType": "Submodel"
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "id": "https://example.com/ids/cd/4440_0091_2132_7184",
+      "embeddedDataSpecifications": [
+        {
+          "dataSpecification": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+              }
+            ]
+          },
+          "dataSpecificationContent": {
+            "preferredName": [{ "language": "en?", "text": "length" }],
+            "unit": "cm",
+            "dataType": "REAL_MEASURE",
+            "modelType": "DataSpecificationIec61360"
+          }
+        }
+      ],
+      "modelType": "ConceptDescription"
+    },
+    {
+      "id": "https://example.com/ids/cd/7280_0091_2132_5037",
+      "embeddedDataSpecifications": [
+        {
+          "dataSpecification": {
+            "type": "ExternalReference",
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+              }
+            ]
+          },
+          "dataSpecificationContent": {
+            "preferredName": [{ "language": "en?", "text": "current" }],
+            "unit": "A",
+            "modelType": "DataSpecificationIec61360"
+          }
+        }
+      ],
+      "modelType": "ConceptDescription"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+from generated.generated import (
+    AssetAdministrationShells,
+    AssetInformation,
+    ConceptDescriptions,
+    DataSpecification,
+    DataSpecificationContent,
+    EmbeddedDataSpecifications,
+    Generated,
+    Keys,
+    PreferredName,
+    SemanticId,
+    SubmodelElements,
+    Submodels,
+    ValueId,
+)
+
+__all__ = [
+    "AssetAdministrationShells",
+    "AssetInformation",
+    "ConceptDescriptions",
+    "DataSpecification",
+    "DataSpecificationContent",
+    "EmbeddedDataSpecifications",
+    "Generated",
+    "Keys",
+    "PreferredName",
+    "SemanticId",
+    "SubmodelElements",
+    "Submodels",
+    "ValueId",
+]
