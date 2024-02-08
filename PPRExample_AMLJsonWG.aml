@@ -1,0 +1,277 @@
+﻿<CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dke.de/CAEX" SchemaVersion="3.0" FileName="PPRExample_AMLJsonWG.aml" xsi:schemaLocation="http://www.dke.de/CAEX CAEX_ClassModel_V.3.0.xsd">
+  <AdditionalInformation AutomationMLVersion="2.0" />
+  <SuperiorStandardVersion>AutomationML 2.10</SuperiorStandardVersion>
+  <SourceDocumentInformation OriginName="AutomationML Editor" OriginID="916578CA-FE0D-474E-A4FC-9E1719892369" OriginVersion="5.3.3.0" LastWritingDateTime="2024-02-08T10:03:49.1590445+01:00" OriginVendor="AutomationML e.V." OriginVendorURL="www.AutomationML.org" OriginRelease="5.3.3.0" OriginProjectTitle="unspecified" OriginProjectID="unspecified" />
+  <InstanceHierarchy Name="PPRExampleInstanceHierarchy">
+    <Version>0</Version>
+    <InternalElement Name="Project" ID="788113b0-0a27-43dc-a1ac-287c57198a2a" ChangeMode="change">
+      <Description>This is the example priject used by AML Json WG to demonstrate the XML -&gt; jsn mapping.</Description>
+      <Version>0.2</Version>
+      <Revision>
+        <RevisionDate>2022-05-25T12:06:49.8329934+02:00</RevisionDate>
+        <OldVersion>0.1</OldVersion>
+        <NewVersion>0.2</NewVersion>
+        <AuthorName>AML Json WG</AuthorName>
+        <Comment>A comment is required</Comment>
+      </Revision>
+      <Copyright>AML json WG</Copyright>
+      <AdditionalInformation>This is just an example of an additional information.</AdditionalInformation>
+      <InternalElement Name="Screw" ID="ad5db25c-0f73-4e9f-8782-0ca28e319c43" RefBaseSystemUnitPath="PPRExampleSystemUnitClassLib/PPRProductSUC">
+        <Attribute Name="Vendor" AttributeDataType="xs:string">
+          <Description>Vendor of the resource</Description>
+          <Value>ScrewVendor</Value>
+        </Attribute>
+        <Attribute Name="Type" AttributeDataType="xs:string">
+          <Description>Type of the resource</Description>
+          <Value>M8</Value>
+        </Attribute>
+        <ExternalInterface Name="RelatedProcess" ID="92cb2e82-03c0-4b8a-9da7-e1c1bc5c488a" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>IN</Value>
+          </Attribute>
+        </ExternalInterface>
+        <RoleRequirements RefBaseRoleClassPath="PPRExampleRoleClassLib/PPRProduct" />
+      </InternalElement>
+      <InternalElement Name="Plate" ID="65a6ac4c-e383-442f-a01c-9e6f00219f6a" RefBaseSystemUnitPath="PPRExampleSystemUnitClassLib/PPRProductSUC">
+        <Attribute Name="Vendor" AttributeDataType="xs:string">
+          <Description>Vendor of the resource</Description>
+          <Value>PlateVendor</Value>
+        </Attribute>
+        <Attribute Name="Type" AttributeDataType="xs:string">
+          <Description>Type of the resource</Description>
+          <Value>116mm-Steel</Value>
+        </Attribute>
+        <ExternalInterface Name="RelatedProcess" ID="73e89349-a9d2-4a1a-8eea-0a729e98b01f" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>IN</Value>
+          </Attribute>
+        </ExternalInterface>
+        <RoleRequirements RefBaseRoleClassPath="PPRExampleRoleClassLib/PPRProduct" />
+      </InternalElement>
+      <InternalElement Name="PlateWithScrew" ID="9cd21d7a-8d2a-4332-8fce-97711c9013e7" RefBaseSystemUnitPath="PPRExampleSystemUnitClassLib/PPRProductSUC">
+        <Attribute Name="Vendor" AttributeDataType="xs:string">
+          <Description>Vendor of the resource</Description>
+          <Value>OwnCompany</Value>
+        </Attribute>
+        <Attribute Name="Type" AttributeDataType="xs:string">
+          <Description>Type of the resource</Description>
+          <Value>OwnProduct</Value>
+        </Attribute>
+        <ExternalInterface Name="RelatedProcess" ID="92fccf8a-58e8-442b-8e06-f250469f34ef" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>OUT</Value>
+          </Attribute>
+        </ExternalInterface>
+        <RoleRequirements RefBaseRoleClassPath="PPRExampleRoleClassLib/PPRProduct" />
+      </InternalElement>
+      <InternalElement Name="Screwing" ID="d9181c32-c952-46da-b6c3-ff1bcdf00539" RefBaseSystemUnitPath="PPRExampleSystemUnitClassLib/PPRProcessSUC">
+        <Attribute Name="Type" AttributeDataType="xs:string">
+          <Description>Type of the resource</Description>
+          <Value>ForceControlledScrewing</Value>
+        </Attribute>
+        <Attribute Name="Duration" AttributeDataType="xs:int" Unit="s">
+          <Description>Duration of the process</Description>
+        </Attribute>
+        <ExternalInterface Name="Output" ID="29adbe5b-25e4-4920-8539-8a48cb961e55" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>OUT</Value>
+          </Attribute>
+        </ExternalInterface>
+        <ExternalInterface Name="RelatedRessource" ID="372b6a92-79ea-4caf-8c09-20fa76db176d" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+        <ExternalInterface Name="Input1" ID="087b34a1-8c19-4dc3-aa70-8ca474d4b61a" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>IN</Value>
+          </Attribute>
+        </ExternalInterface>
+        <ExternalInterface Name="Input2" ID="ccd19d4f-f12c-45ca-8652-08533ebfacdd" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+          <Attribute Name="InOut" AttributeDataType="xs:string">
+            <Description>Product is input or output of process</Description>
+            <Value>IN</Value>
+          </Attribute>
+        </ExternalInterface>
+        <RoleRequirements RefBaseRoleClassPath="PPRExampleRoleClassLib/PPRProcess" />
+      </InternalElement>
+      <InternalElement Name="Screwdriver" ID="a8512afa-10d9-429f-a640-8e8926f0c6bd" RefBaseSystemUnitPath="PPRExampleSystemUnitClassLib/PPRRessouceSUC">
+        <Attribute Name="Vendor" AttributeDataType="xs:string">
+          <Description>Vendor of the resource</Description>
+          <Value>ScrewDriverVendor</Value>
+        </Attribute>
+        <Attribute Name="Type" AttributeDataType="xs:string">
+          <Description>Type of the resource</Description>
+          <Value>Electrical Screw Driver</Value>
+        </Attribute>
+        <ExternalInterface Name="ExecutableProcess" ID="b609a480-b575-4c33-8ad9-72c59c5841a3" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+        <RoleRequirements RefBaseRoleClassPath="PPRExampleRoleClassLib/PPRRessouce" />
+      </InternalElement>
+      <InternalLink Name="UsedScrew" RefPartnerSideA="92cb2e82-03c0-4b8a-9da7-e1c1bc5c488a" RefPartnerSideB="087b34a1-8c19-4dc3-aa70-8ca474d4b61a" />
+      <InternalLink Name="UsedPlate" RefPartnerSideA="73e89349-a9d2-4a1a-8eea-0a729e98b01f" RefPartnerSideB="ccd19d4f-f12c-45ca-8652-08533ebfacdd" />
+      <InternalLink Name="ProcessResult" RefPartnerSideA="29adbe5b-25e4-4920-8539-8a48cb961e55" RefPartnerSideB="92fccf8a-58e8-442b-8e06-f250469f34ef" />
+      <InternalLink Name="RessourceLink" RefPartnerSideA="b609a480-b575-4c33-8ad9-72c59c5841a3" RefPartnerSideB="372b6a92-79ea-4caf-8c09-20fa76db176d" />
+      <RoleRequirements RefBaseRoleClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+    </InternalElement>
+  </InstanceHierarchy>
+  <InterfaceClassLib Name="AutomationMLInterfaceClassLib" ChangeMode="state">
+    <Description>Standard Automation Markup Language Interface Class Library - Part 1 Content </Description>
+    <Version>2.10</Version>
+    <Copyright>AutomationML e.V.</Copyright>
+    <InterfaceClass Name="AutomationMLBaseInterface">
+      <InterfaceClass Name="Order" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+        <Attribute Name="Direction" AttributeDataType="xs:string">
+          <DefaultValue>InOut</DefaultValue>
+          <Constraint Name="AllowedValues">
+            <NominalScaledType>
+              <RequiredValue>In</RequiredValue>
+              <RequiredValue>Out</RequiredValue>
+              <RequiredValue>InOut</RequiredValue>
+            </NominalScaledType>
+          </Constraint>
+        </Attribute>
+      </InterfaceClass>
+      <InterfaceClass Name="Port" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+        <Attribute Name="Direction" AttributeDataType="xs:string">
+          <Constraint Name="AllowedValues">
+            <NominalScaledType>
+              <RequiredValue>In</RequiredValue>
+              <RequiredValue>Out</RequiredValue>
+              <RequiredValue>InOut</RequiredValue>
+            </NominalScaledType>
+          </Constraint>
+        </Attribute>
+        <Attribute Name="Cardinality">
+          <Attribute Name="MinOccur" AttributeDataType="xs:unsignedInt" />
+          <Attribute Name="MaxOccur" AttributeDataType="xs:unsignedInt" />
+        </Attribute>
+        <Attribute Name="Category" AttributeDataType="xs:string" />
+      </InterfaceClass>
+      <InterfaceClass Name="PPRConnector" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface" />
+      <InterfaceClass Name="ExternalDataConnector" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+        <Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+        <InterfaceClass Name="COLLADAInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector">
+          <Attribute Name="refType" AttributeDataType="xs:string" />
+          <Attribute Name="target" AttributeDataType="xs:token" />
+        </InterfaceClass>
+        <InterfaceClass Name="PLCopenXMLInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector" />
+        <InterfaceClass Name="ExternalDataReference" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector">
+          <Attribute Name="MIMEType" AttributeDataType="xs:string" />
+        </InterfaceClass>
+      </InterfaceClass>
+      <InterfaceClass Name="Communication" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+        <InterfaceClass Name="SignalInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/Communication" />
+      </InterfaceClass>
+    </InterfaceClass>
+  </InterfaceClassLib>
+  <InterfaceClassLib Name="PPRExampleInterfaceClassLib">
+    <Version>0</Version>
+    <InterfaceClass Name="ProductProcessRelation" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/PPRConnector">
+      <Attribute Name="InOut" AttributeDataType="xs:string">
+        <Description>Product is input or output of process</Description>
+      </Attribute>
+    </InterfaceClass>
+    <InterfaceClass Name="ProcessRessourceRelation" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/PPRConnector" />
+  </InterfaceClassLib>
+  <RoleClassLib Name="AutomationMLBaseRoleClassLib">
+    <Description>Automation Markup Language Base Role Class Library - Part 1</Description>
+    <Version>2.10.0</Version>
+    <RoleClass Name="AutomationMLBaseRole" ChangeMode="state">
+      <RoleClass Name="Group" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+        <Attribute Name="AssociatedFacet" AttributeDataType="xs:string" />
+      </RoleClass>
+      <RoleClass Name="Facet" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+      <RoleClass Name="Resource" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+      <RoleClass Name="Product" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+      <RoleClass Name="Process" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+      <RoleClass Name="Structure" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+        <RoleClass Name="ProductStructure" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure" />
+        <RoleClass Name="ProcessStructure" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure" />
+        <RoleClass Name="ResourceStructure" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure" />
+      </RoleClass>
+      <RoleClass Name="ExternalData" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole" />
+    </RoleClass>
+  </RoleClassLib>
+  <RoleClassLib Name="PPRExampleRoleClassLib">
+    <Version>0</Version>
+    <RoleClass Name="PPRRessouce" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Resource">
+      <Attribute Name="Vendor" AttributeDataType="xs:string">
+        <Description>Vendor of the resource</Description>
+      </Attribute>
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <ExternalInterface Name="ExecutableProcess" ID="e5d317d0-99f4-4cea-84e1-7d46c36af643" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+    </RoleClass>
+    <RoleClass Name="PPRProduct" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Product">
+      <Attribute Name="Vendor" AttributeDataType="xs:string">
+        <Description>Vendor of the resource</Description>
+      </Attribute>
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <ExternalInterface Name="RelatedProcess" ID="f7ca2468-bc8a-4f26-8b63-e21fd9f01cb7" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+        <Attribute Name="InOut" AttributeDataType="xs:string">
+          <Description>Product is input or output of process</Description>
+        </Attribute>
+      </ExternalInterface>
+    </RoleClass>
+    <RoleClass Name="PPRProcess" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <Attribute Name="Duration" AttributeDataType="xs:int" Unit="s">
+        <Description>Duration of the process</Description>
+      </Attribute>
+      <ExternalInterface Name="RelatedProduct" ID="1a5b7e37-6224-4399-8462-41485804d81f" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+        <Attribute Name="InOut" AttributeDataType="xs:string">
+          <Description>Product is input or output of process</Description>
+        </Attribute>
+      </ExternalInterface>
+      <ExternalInterface Name="RelatedRessource" ID="d3b3a515-c5f8-49be-b3aa-6c72074d3d44" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+    </RoleClass>
+  </RoleClassLib>
+  <SystemUnitClassLib Name="PPRExampleSystemUnitClassLib">
+    <Version>0</Version>
+    <SystemUnitClass Name="PPRRessouceSUC" ID="27e9ad20-3da6-4cc3-9e7a-9da776229f58">
+      <Attribute Name="Vendor" AttributeDataType="xs:string">
+        <Description>Vendor of the resource</Description>
+      </Attribute>
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <ExternalInterface Name="ExecutableProcess" ID="2e7ffcb4-bd4c-4890-ac8b-c7c45a3cf7c1" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+      <SupportedRoleClass RefRoleClassPath="PPRExampleRoleClassLib/PPRRessouce" />
+    </SystemUnitClass>
+    <SystemUnitClass Name="PPRProcessSUC" ID="ed85f5f7-8a91-4e92-a882-cdd0a22d6f82">
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <Attribute Name="Duration" AttributeDataType="xs:int" Unit="s">
+        <Description>Duration of the process</Description>
+      </Attribute>
+      <ExternalInterface Name="RelatedProduct" ID="f3f9151f-0984-4c16-8a53-8f05d0ea40cc" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+        <Attribute Name="InOut" AttributeDataType="xs:string">
+          <Description>Product is input or output of process</Description>
+        </Attribute>
+      </ExternalInterface>
+      <ExternalInterface Name="RelatedRessource" ID="d8dde75c-00ca-4f78-aa25-8a3d9f2e523e" RefBaseClassPath="PPRExampleInterfaceClassLib/ProcessRessourceRelation" />
+      <SupportedRoleClass RefRoleClassPath="PPRExampleRoleClassLib/PPRProcess" />
+    </SystemUnitClass>
+    <SystemUnitClass Name="PPRProductSUC" ID="5717a780-5d5e-4970-8513-e45202f8114b">
+      <Attribute Name="Vendor" AttributeDataType="xs:string">
+        <Description>Vendor of the resource</Description>
+      </Attribute>
+      <Attribute Name="Type" AttributeDataType="xs:string">
+        <Description>Type of the resource</Description>
+      </Attribute>
+      <ExternalInterface Name="RelatedProcess" ID="b21ef251-f5a1-4133-99db-24eab80eab83" RefBaseClassPath="PPRExampleInterfaceClassLib/ProductProcessRelation">
+        <Attribute Name="InOut" AttributeDataType="xs:string">
+          <Description>Product is input or output of process</Description>
+        </Attribute>
+      </ExternalInterface>
+      <SupportedRoleClass RefRoleClassPath="PPRExampleRoleClassLib/PPRProduct" />
+    </SystemUnitClass>
+  </SystemUnitClassLib>
+</CAEXFile>

@@ -336,25 +336,6 @@ class HeaderVersion:
 
 
 @dataclass
-class AdditionalInformation:
-
-    class Meta:
-        global_type = False
-
-    key: str = field(
-        default="",
-        metadata={
-            "required": True,
-        }
-    )
-    value: str = field(
-        default="",
-        metadata={
-            "required": True,
-        }
-    )
-
-@dataclass
 class CaexbasicObject:
     """
     CAEX basis object that comprises a basic set of attributes and header
@@ -378,7 +359,7 @@ class CaexbasicObject:
     class Meta:
         name = "CAEXBasicObject"
 
-    additional_information: List[AdditionalInformation] = field(
+    additional_information: List[object] = field(
         default_factory=list,
         metadata={
             "name": "AdditionalInformation",

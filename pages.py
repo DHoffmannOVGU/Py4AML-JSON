@@ -49,6 +49,8 @@ def file_upload_page():
                 st.session_state["type"] = "XML"
             except Exception as e:
                 print(e)
+                st.warning("Schmema-based converter failed")
+                st.warning("Please provide AML files build with the CAEX 3.0 schema")
 
         elif raw_data.type == "application/json":
             dict_data = json.load(raw_data)
@@ -191,6 +193,6 @@ def download_page():
     st.success("AML file successfully converted to JSON, Download file below")
     filename = st.text_input("Enter file name", st.session_state["file_name"])
     if st.session_state["optimized_json_string"] is not None:
-        st.download_button("Download converted AML-JSON File", file_name=f"{filename}.json", mime="application/json", data=st.session_state["optimized_json_string"], use_container_width=True, key="download_button2")
+        st.download_button("Download converted AML-JSON File", file_name=f"{filename}.json", mime="application/json", data=st.session_state["optimized_json_string"], use_container_width=True, key="download_button2", type="primary")
     else:
         st.download_button("Download converted AML-JSON File", file_name=f"{filename}.json", mime="application/json", data=st.session_state["json_string"], use_container_width=True, key="download_button2", type="primary")
