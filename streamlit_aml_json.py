@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 import streamlit_antd_components as sac 
-from pages import file_upload_page, check_conversion, optimize_storage, download_page
+from _pages import file_upload, check_conversion, optimize_storage, download
 
 # Load AML and header images
 aml_image = Image.open('./aml_logo.png')
@@ -14,29 +14,33 @@ st.set_page_config(page_title="AML-JSON Converter", page_icon=aml_image, initial
 # Page header and title
 st.image(aml_json_logo, width=500)
 
+session_state_dict = {
+    "aml_object": None,
+    "raw_data": None,
+    "json_size": None,
+    "aml_dict": None,
+    "optimized_yaml_string": None,
+    "optimized_json_string": None,
+    "optimized_dict": None,
+    "aml_dict": None,
+}
+
+for key, value in session_state_dict.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
+
+page_dict ={
+    "Upload JSON or AML File": file_upload,
+    "Check JSON conversion": check_conversion,
+    "Optimize storage Size": optimize_storage,
+    "Download JSON": download,
+
+}
+
+nav_items = list(page_dict.keys())
+
 # Navigation steps
-steps = sac.steps(
-    items=[
-        sac.StepsItem(title='Upload JSON or AML File'),
-        sac.StepsItem(title='Check JSON conversion'),
-        sac.StepsItem(title='Optimize storage Size'),
-        sac.StepsItem(title='Download JSON'),
-    ], 
-)
+nav_step = sac.steps(nav_items)
 
-if steps == "Upload JSON or AML File":
-    file_upload_page()
-
-elif steps == "Check JSON conversion":
-    check_conversion()
-
-elif steps == "Optimize storage Size":
-    optimize_storage()
-
-#     st.success("AML file successfully converted to JSON, Download file below")
-#     st.download_button("Download converted AML-JSON File", file_name=f"{st.session_state['file_name']}.json", mime="application/json", data=cleaned_json, use_container_width=True, key="download_button2")
-
-
-elif steps == "Download JSON":
-    download_page()
-       
+# Page navigation
+page = page_dict[nav_step]()

@@ -2,7 +2,7 @@ import streamlit as st
 import uuid
 
 
-from aml_base import Caexfile, CaexfileSystemUnitClassLib, SystemUnitClassType, AttributeInstance, CaexfileInstanceHierarchy, InternalElementType, InternalElementTypeRoleRequirements
+from model import Caexfile, CaexfileSystemUnitClassLib, SystemUnitClassType, AttributeInstance, CaexfileInstanceHierarchy, InternalElementType, InternalElementTypeRoleRequirements
 
 new_file = Caexfile(file_name="Motorfile.aml")
 
@@ -40,10 +40,12 @@ mapping_dict = [
         "evaluator": "contains",
         "value": "Drive Control",
         "class": "Control",
-        "attributes": 
+        "attributes": [
             {
+                
                 "achs-diameter": "Achs-ø",
             }
+        ]
     },
     {
         "key": "denomination",
