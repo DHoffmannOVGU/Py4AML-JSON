@@ -70,3 +70,4 @@ def parser_definition(indent_value = None):
     config = SerializerConfig(pretty_print=False, ignore_default_attributes=True)
     json_serializer = JsonSerializer(context=XmlContext(), config=config, indent=indent_value)
     return context, parser, json_parser, xml_serializer, json_serializer
+
