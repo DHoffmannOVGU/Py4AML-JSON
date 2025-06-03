@@ -1,6 +1,6 @@
 import streamlit as st
 from model import Caexfile
-from utils import parser_definition, json_optimizer
+from utils import parser_definition, json_optimizer, json_unabbreviate
 import json
 
 
@@ -70,8 +70,15 @@ def file_upload():
 
         elif st.session_state["type"] == "JSON":
             st.json(st.session_state["aml_object"], expanded=False)
-            xml_object: Caexfile = json_parser.bind_dataclass(st.session_state["aml_object"], Caexfile)
+            full_json = json_unabbreviate(st.session_state["aml_object"])
+            xml_object: Caexfile = json_parser.bind_dataclass(full_json, Caexfile)
             xml_string = xml_serializer.render(xml_object)
             st.success("JSON file successfully converted to AML, Download file below")
-            st.download_button("Download converted AML (.aml) File", file_name=f"{st.session_state['file_name']}.aml",
-                               mime="text/xml", data=xml_string, use_container_width=True, key="download_button3")
+            st.download_button(
+                "Download converted AML (.aml) File",
+                file_name=f"{st.session_state['file_name']}.aml",
+                mime="text/xml",
+                data=xml_string,
+                use_container_width=True,
+                key="download_button3"
+            )

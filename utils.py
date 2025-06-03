@@ -71,3 +71,37 @@ def parser_definition(indent_value = None):
     json_serializer = JsonSerializer(context=XmlContext(), config=config, indent=indent_value)
     return context, parser, json_parser, xml_serializer, json_serializer
 
+
+from abbreviations import name_abbreviations, num_abbreviations
+
+def json_unabbreviate(abbrev_dict: dict) -> dict:
+    """
+    Recursively replace abbreviated keys in abbrev_dict with their original names,
+    using the name_abbreviations and num_abbreviations mappings.
+    """
+    # Build inverted maps: { abbrev: full_key }
+    inv_name = {v: k for k, v in name_abbreviations.items()}
+    inv_num  = {v: k for k, v in num_abbreviations.items()}
+
+    def process_value(val):
+        if isinstance(val, dict):
+            return _unabbrev_dict(val)
+        elif isinstance(val, list):
+            # Process each element in the list
+            return [process_value(elem) for elem in val]
+        else:
+            return val
+
+    def _unabbrev_dict(d: dict) -> dict:
+        new_dict = {}
+        for key, value in d.items():
+            # Look up the key in the inverted maps; default to original if not found
+            full_key = inv_name.get(key, inv_num.get(key, key))
+            # Recurse into the value
+            new_val = process_value(value)
+            new_dict[full_key] = new_val
+        return new_dict
+
+    return _unabbrev_dict(abbrev_dict)
+
+

@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-import streamlit_antd_components as sac 
+import streamlit_antd_components as sac
 from _pages import file_upload, check_conversion, optimize_storage, download
 
 # Load AML and header images
@@ -30,14 +30,28 @@ for key, value in session_state_dict.items():
         st.session_state[key] = value
 
 page_dict ={
-    "Upload JSON or AML File": file_upload,
+    "Upload AML File": file_upload,
+    "Upload JSON File": file_upload,
     "Check JSON conversion": check_conversion,
     "Optimize storage Size": optimize_storage,
     "Download JSON": download,
-
 }
 
-nav_items = list(page_dict.keys())
+mode = sac.segmented(
+    items=[
+        sac.SegmentedItem(label='AML to JSON', icon='file-code'),
+        sac.SegmentedItem(label='JSON to AML', icon='file-text'),
+    ],
+    label='Select Mode',
+    align='center',
+    use_container_width=True
+)
+
+if mode == 'AML to JSON':
+    nav_items = ["Upload AML File", "Check JSON conversion", "Optimize storage Size", "Download JSON"]
+elif mode == 'JSON to AML':
+    nav_items = ["Upload JSON File"]
+
 
 # Navigation steps
 nav_step = sac.steps(nav_items)
