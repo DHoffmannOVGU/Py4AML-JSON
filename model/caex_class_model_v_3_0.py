@@ -1,7 +1,9 @@
 from dataclasses import field
 from enum import Enum
+
+from pydantic import root_validator, Field
 from pydantic.dataclasses import dataclass
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any, Union
 from xsdata.models.datatype import XmlDateTime
 
 __NAMESPACE__ = "http://www.dke.de/CAEX"
@@ -334,25 +336,10 @@ class HeaderVersion:
         }
     )
 
-#
-# @dataclass
-# class AdditionalInformation:
-#
-#     class Meta:
-#         global_type = False
-#
-#     key: str = field(
-#         default="",
-#         metadata={
-#             "required": False,
-#         }
-#     )
-#     value: str = field(
-#         default="",
-#         metadata={
-#             "required": False,
-#         }
-#     )
+@dataclass
+class AdditionalInformation:
+    __root__: str = field(default_factory=str)
+
 
 
 @dataclass(kw_only=True)
@@ -379,7 +366,7 @@ class CaexbasicObject:
     class Meta:
         name = "CAEXBasicObject"
 
-    additional_information: List[object] = field(
+    additional_information: List[AdditionalInformation] = field(
         default_factory=list,
         metadata={
             "name": "AdditionalInformation",

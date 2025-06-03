@@ -359,7 +359,7 @@ class CaexbasicObject:
     class Meta:
         name = "CAEXBasicObject"
 
-    additional_information: List[object] = field(
+    additional_information: List[str] = field(
         default_factory=list,
         metadata={
             "name": "AdditionalInformation",
