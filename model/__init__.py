@@ -1,5 +1,5 @@
 from model.caex_class_model_v_3_0 import (
-    AdditionalInformation,
+    #AdditionalInformation,
     AttributeType,
     AttributeInstance,
     AttributeTypeRefSemantic,
@@ -40,7 +40,7 @@ from model.caex_class_model_v_3_0 import (
 )
 
 __all__ = [
-    "AdditionalInformation"
+    #"AdditionalInformation"
     "AttributeType",
     "AttributeInstance",
     "AttributeTypeRefSemantic",
